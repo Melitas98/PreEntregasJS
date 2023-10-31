@@ -1,28 +1,49 @@
-console.log("El usuario ingreso a la página de pedidos del e-commerce y decide registrar un pedido personalizado");
+alert("Bienvenido a Punto Enano. Empecemos con tu compra!");
 
-const nombreUsuario = prompt("Ingresé su nombre completo");
-alert(nombreUsuario + " bienvenido/a a Punto Enano, comencémos con tu pedido. Te vamos a pedir algunos datos para registrar tu compra");
-const apellido = prompt("Ingrese su Apellido");
-const email = prompt("Ingrese su Correo Electronico");
-let telefono = prompt("Ingrese su numero de contacto");
-let caracteristicas = prompt("Ingrese una breve descripción de su pedido");
+const productos = [
+    { id: 1, nombre: "Grogu", precio: 4000},
+    { id: 2, nombre: "Mochila en corchet", precio: 3800},
+    { id: 3, nombre: "Cactus en Crochet", precio: 1600},
+    { id: 4, nombre: "Elefante de la suerte", precio: 1800},
+    { id: 5, nombre: "Gatitos en Crochet", precio: 3200}
+];
 
-console.log  (nombrePelicula);
-console.log  (tamanio);
+function mostrarProductos() {
+    alert("Tenemos los siguientes productos disponibles para tu comrpa:");
+    productos.forEach((producto) => {
+        alert(producto.id + ": " + producto.nombre + " - $" + producto.precio);
+    });
+}
 
-function obtenerInformacion() {
-    let personaje = prompt("Si tu pedido tiene como protagonista a un personaje de una película o juego ingresa: 1 . Sino ingresa: 0");
-    if (personaje == "1") {
-        nombrePelicula = prompt("Ingresa el nombre del personaje y de la película/juego donde aparece");
-    } else if (personaje == "0") {
-        tamanio = prompt("Ingresa el tamaño aproximado de tu pedido");
+mostrarProductos();
+
+const carrito = [];
+
+while (true) {
+    const seleccion = prompt("Ingresa el numero del producto que queres agregar a tu carrito o 0 para finalizar la compra:");
+    if (seleccion == "0") {
+        break;
+    }
+    
+    const productoSeleccionado = productos.find(producto => producto.id === parseInt(seleccion));
+    if (productoSeleccionado) {
+        carrito.push(productoSeleccionado);
+        alert("Producto agregado al carrito: " + productoSeleccionado.nombre);
     } else {
-        alert("Opción incorrecta, ingrese: 1 o 0");
-        obtenerInformacion();
+        alert("Lo sentimos :( Este producto no existe. Intentalo otra vez.");
     }
 }
 
-obtenerInformacion();
+let totalCompra = 0;
 
-alert("Gracias por tu pedido, en breve nos pondremos en contacto con más novedades");
-alert("Cualquier duda o consulta, no dudes en contactarnos por cualquiera de nuestros medios habilitados");
+carrito.forEach((producto) => {
+    totalCompra += producto.precio;
+});
+
+alert("En tu carrito tenes los siguientes productos:");
+carrito.forEach((producto) => {
+    alert(producto.nombre + ": $" + producto.precio);
+});
+
+alert("El total a abonar por tu compra es de: $" + totalCompra);
+alert("¡Gracias por tu compra en Punto Enano, volve pronto! ;)");
